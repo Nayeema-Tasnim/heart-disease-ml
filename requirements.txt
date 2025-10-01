@@ -1,0 +1,15 @@
+pandas
+numpy
+scikit-learn
+joblib6
+matplotlib
+Pillow
+albumentations
+opencv-python-headless
+torch
+torchvision
+fastapi
+uvicorn
+pydantic
+streamlit
+xgboost

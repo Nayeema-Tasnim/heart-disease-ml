@@ -1,0 +1,1 @@
+Place chest X‑ray images here under 'Cardiomegaly' and 'No Finding'.
