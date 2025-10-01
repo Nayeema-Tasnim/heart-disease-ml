@@ -3,7 +3,7 @@ from PIL import Image
 from torchvision import transforms
 import torch
 
-# Your project imports
+# project imports
 from src.tabular.infer import predict_one as predict_tabular
 from src.imaging.infer import load_model as load_cnn
 
@@ -148,43 +148,3 @@ with tab3:
 
 
 
-
-# add after: tab1, tab2 = st.tabs([...])
-# tab1, tab2, tab3 = st.tabs(["Clinical (Tabular)", "Chest X-ray (Imaging)", "Hybrid (Late Fusion)"])
-
-# with tab3:
-#     st.subheader("Hybrid (Late Fusion)")
-#     img_file = st.file_uploader("Upload image for hybrid", type=["jpg","jpeg","png"], key="hyb_up")
-#     row_index = st.number_input("UCI row index", min_value=0, step=1, value=0)
-#     alpha = st.slider("Alpha (weight on imaging)", 0.0, 1.0, 0.5, 0.05)
-
-#     if st.button("Predict (Hybrid)"):
-#         if img_file is None:
-#             st.error("Upload an image first")
-#         else:
-#             import pandas as pd, json, io
-#             from PIL import Image
-#             from torchvision import transforms
-#             import torch, joblib
-#             from src.imaging.infer import load_model as load_cnn
-#             from src.common.paths import TABULAR_MODELS
-#             # imaging prob
-#             model, device, img_size = load_cnn()
-#             tf = transforms.Compose([transforms.Resize((img_size, img_size)), transforms.ToTensor()])
-#             img = Image.open(img_file).convert("RGB")
-#             x = tf(img).unsqueeze(0).to(device)
-#             with torch.no_grad():
-#                 logit, _ = model(x)
-#                 p_img = float(torch.sigmoid(logit).item())
-#             # tabular prob
-#             df = pd.read_csv("data/uci/heart_cleveland.csv")
-#             if int(row_index) >= len(df):
-#                 st.error("Row index out of range"); st.stop()
-#             row = df.iloc[int(row_index)].drop(labels=["target"], errors="ignore")
-#             X = pd.DataFrame([row])
-#             tab = joblib.load(TABULAR_MODELS / "best_model.joblib")
-#             p_tab = float(tab.predict_proba(X)[0,1])
-#             # fuse
-#             p_h = alpha*p_img + (1-alpha)*p_tab
-#             pred = int(p_h >= 0.5)
-#             st.write({"alpha": alpha, "p_image": p_img, "p_tabular": p_tab, "p_hybrid": p_h, "prediction": pred})
